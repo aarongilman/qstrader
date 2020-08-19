@@ -7,7 +7,7 @@ from qstrader.alpha_model.fixed_signals import FixedSignalsAlphaModel
 from qstrader.asset.equity import Equity
 from qstrader.asset.universe.static import StaticUniverse
 from qstrader.data.backtest_data_handler import BacktestDataHandler
-from qstrader.data.daily_bar_csv import CSVDailyBarDataSource
+from qstrader.data.daily_bar_tiingo import TiingoDailyBarDataSource
 from qstrader.statistics.tearsheet import TearsheetStatistics
 from qstrader.trading.backtest import BacktestTradingSession
 
@@ -23,8 +23,10 @@ if __name__ == "__main__":
 
     # To avoid loading all CSV files in the directory, set the
     # data source to load only those provided symbols
-    csv_dir = os.environ.get('QSTRADER_CSV_DATA_DIR', '.')
-    data_source = CSVDailyBarDataSource(csv_dir, Equity, csv_symbols=strategy_symbols)
+    # csv_dir = os.environ.get('QSTRADER_CSV_DATA_DIR', '.')
+    data_source = TiingoDailyBarDataSource(Equity, symbols=strategy_symbols,
+                                           tiingo_api_key='26f6373c056a4a682921849355a87f991fd8ffb8',
+                                           start_date=start_dt, end_date=end_dt)
     data_handler = BacktestDataHandler(strategy_universe, data_sources=[data_source])
 
     # Construct an Alpha Model that simply provides
