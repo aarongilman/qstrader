@@ -25,7 +25,7 @@ if __name__ == "__main__":
     # data source to load only those provided symbols
     # csv_dir = os.environ.get('QSTRADER_CSV_DATA_DIR', '.')
     data_source = TiingoDailyBarDataSource(Equity, symbols=strategy_symbols,
-                                           tiingo_api_key='26f6373c056a4a682921849355a87f991fd8ffb8',
+                                           tiingo_api_key=os.environ.get('TIINGO_API_KEY'),
                                            start_date=start_dt, end_date=end_dt)
     data_handler = BacktestDataHandler(strategy_universe, data_sources=[data_source])
 
